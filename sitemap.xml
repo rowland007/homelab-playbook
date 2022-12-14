@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://rowland007.github.io/homelab-playbook/</loc>
+         <lastmod>2022-12-14</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://rowland007.github.io/homelab-playbook/apps/</loc>
+         <lastmod>2022-12-14</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://rowland007.github.io/homelab-playbook/os/</loc>
+         <lastmod>2022-12-14</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://rowland007.github.io/homelab-playbook/resources/app1/</loc>
+         <lastmod>2022-12-14</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+</urlset>
