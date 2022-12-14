@@ -14,14 +14,6 @@ copyright: 'Copyright &copy; 2021-2023 Randall Rowland<br>This work is licensed 
 # Navigation Menu
 nav:
     - Overview: 'index.md'
-    - How to use the template:
-        'Overview': 'template/index.md'
-        'More Info': 'template/info.md'
-    - About Mkdocs:
-        'Overview': 'mkdocs/index.md'
-    - Documentation Style:
-        'Overview': 'style/index.md'
-    - Appendix 1 - Resources: 'resources.md'
 
 # Configuration
 theme:
