@@ -14,6 +14,12 @@ copyright: 'Copyright &copy; 2021-2023 Randall Rowland<br>This work is licensed 
 # Navigation Menu
 nav:
     - Overview: 'index.md'
+    - Operating Systems:
+        'Overview': 'os/index.md'
+    - Applications:
+        'Overview': 'apps/index.md'
+    - Resources: 
+        'Appendix 1': 'resources/app1.md'
 
 # Configuration
 theme:
