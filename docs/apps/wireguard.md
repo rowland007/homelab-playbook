@@ -12,6 +12,24 @@ There are two possible workarounds to enable the WireGuard interface.
 2. Add a registry key and add user to the `Network Configuration Operators` group.
     - Pro: WireGuard GUI is accessible
     - Con: messing with registry, GUI functionality severely limited, messes with privilege elevation prompt
+    
+    !!! info
+        ### Network Configuration Operators
+
+        Members of the Network Configuration Operators group can have the following administrative privileges to manage configuration of networking features:
+
+            - Modify the Transmission Control Protocol/Internet Protocol (TCP/IP) properties for a local area network (LAN) connection, which includes the IP address, the subnet mask, the default gateway, and the name servers.
+            - Rename the LAN connections or remote access connections that are available to all the users.
+            - Enable or disable a LAN connection.
+            - Modify the properties of all remote access connections of users.
+            - Delete all the remote access connections of users.
+            - Rename all the remote access connections of users.
+            - Issue `ipconfig`, `ipconfig /release`, and `ipconfig /renew` commands.
+            - Enter the PIN unblock key (PUK) for mobile broadband devices that support a SIM card.
+        
+        This group appears as an SID until the domain controller is made the primary domain controller and it holds the operations master (FSMO) role. This group can't be renamed, deleted, or removed.
+
+        The Network Configuration Operators group applies to the Windows Server operating system in Default Active Directory security groups.
 
 ## How to add a User to a Group on Windows
 
@@ -61,3 +79,4 @@ There are two possible workarounds to enable the WireGuard interface.
 ??? cite
     - [:octicons-link-external-16: StackExchange superuser forum](https://superuser.com/questions/1488844/issues-running-wireguard-on-windows-10-as-non-administrator-ui-is-only-access#1527973)
     - [:octicons-link-external-16: Jason A. Donenfeld (zx2c4)](https://git.zx2c4.com/wireguard-windows/about/docs/adminregistry.md)
+    - [:octicons-link-external-16: Microsoft Understand Security Groups](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-groups#network-configuration-operators)
