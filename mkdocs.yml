@@ -18,6 +18,7 @@ nav:
         'Overview': 'os/index.md'
     - Applications:
         'Overview': 'apps/index.md'
+        'Netbox': 'apps/netbox.md'
         'WireGuard': 'apps/wireguard.md'
     - Resources: 
         'Appendix 1': 'resources/app1.md'
