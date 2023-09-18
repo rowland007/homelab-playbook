@@ -19,6 +19,7 @@ nav:
     - Applications:
         'Overview': 'apps/index.md'
         'Netbox': 'apps/netbox.md'
+        'Kasm': 'apps/kasm.md'
         'WireGuard': 'apps/wireguard.md'
     - Resources: 
         'Appendix 1': 'resources/app1.md'
