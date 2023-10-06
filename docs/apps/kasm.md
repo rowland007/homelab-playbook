@@ -44,10 +44,13 @@ Streaming containerized apps and desktops to end-users. The Workspaces platform 
     tar -xf kasm_release_1.14.0.3a7abb.tar.gz
     kasm_release/install.sh --accept-eula 
     ```
+
     !!! tip
         Check the documentation to get the latest release. They do not use a "latest" tag to download the tar.
+
     !!! danger
         The install will only show the passwords once. Ensure you get a screen capture of the passwords so you can log in.
+        
 4. The whole application will be available after you see the passwords. Open the URL ```https://0.0.0.0/``` in a web-browser. You should see the Kasm Workspaces login screen. Login as ```admin@kasm.local```.
 5. Enable 2FA
     1. Navigate to `Access Management` -> `Groups`
