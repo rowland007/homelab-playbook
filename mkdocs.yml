@@ -23,6 +23,7 @@ nav:
         'WireGuard': 'apps/wireguard.md'
     - Resources: 
         'Appendix 1': 'resources/app1.md'
+        'Website Links': 'resources/websites.md'
 
 # Configuration
 theme:
