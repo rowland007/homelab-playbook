@@ -18,6 +18,7 @@ nav:
         'Overview': 'os/index.md'
     - Applications:
         'Overview': 'apps/index.md'
+        'Wazuh': 'apps/wazuh.md'
         'Netbox': 'apps/netbox.md'
         'Kasm': 'apps/kasm.md'
         'WireGuard': 'apps/wireguard.md'
