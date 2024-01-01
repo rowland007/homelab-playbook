@@ -2,6 +2,7 @@
 
 ![image](https://securityonionsolutions.com/img/graphics/peelback-half.jpg
 )
+
 1. Install Proxmox (this guide does not cover how to do that)
 2. [Download](https://github.com/Security-Onion-Solutions/securityonion/blob/2.4/main/DOWNLOAD_AND_VERIFY_ISO.md) the Security Onion ISO to Proxmox
 3. Install OpenV Switch in Proxmox
@@ -32,5 +33,6 @@
    root@pve:~# ip link
    root@pve:~# ovs-vsctl --id=@p get port tap<VMID>i1 -- --id=@m create mirror name=span1 select-all=true output-port=@p -- set bridge vmbr# mirrors=@m
    ```
+   
 [source video](https://www.youtube.com/watch?v=BA6wuWM9acY)  
 [source github](https://github.com/Security-Onion-Solutions/securityonion/discussions/8245)
