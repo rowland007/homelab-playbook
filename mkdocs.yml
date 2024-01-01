@@ -16,6 +16,7 @@ nav:
     - Overview: 'index.md'
     - Operating Systems:
         'Overview': 'os/index.md'
+        'Security Onion': 'os/seconion.md'
     - Applications:
         'Overview': 'apps/index.md'
         'Wazuh': 'apps/wazuh.md'
