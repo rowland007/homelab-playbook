@@ -10,7 +10,7 @@
 ## The Procedure
 
 !!! note
-    This process will install Zeek, BeaKer, and AC-Hunter.
+    This process will install Zeek, BeaKer, and AC-Hunter. I am running this on my home network to experiment with Zeek and AC-Hunter. See the link down below about the warning about capturing packets in a VM.
 
 ??? warning "DO NOT USE LXC CONTAINERS"
     If you use the `ubuntu-20.04-standard_20.04-1_amd64.tar.gz` LXC CT Template, AC-Hunter will fail to start.
@@ -112,3 +112,12 @@ After this change, the installation of AC Hunter and Zeek will complete without 
 
 - [:octicons-link-external-16: AC-Hunter CTF User Guide](https://www.activecountermeasures.com/wp-content/uploads/2022/02/AC-Hunter-CTF-User-Guide_2022.pdf) :fontawesome-solid-file-pdf:
 - [:octicons-link-external-16: AC-Hunter User Guide](https://www.activecountermeasures.com/wp-content/uploads/2023/02/AC-Hunter-User-Guide-v6_3_0-CE.pdf) :fontawesome-solid-file-pdf:
+
+## Resources/Sources
+
+- [:octicons-link-external-16: HoldMyBeer Security: Install/Setup Zeek + PF_Ring on Ubuntu 18.04 on Proxmox 5.3 + OpenVSwitch](https://holdmybeersecurity.com/2019/04/03/part-1-install-setup-zeek-pf_ring-on-ubuntu-18-04-on-proxmox-5-3-openvswitch/) :fontawesome-solid-blog:
+- [:octicons-link-external-16: Active Countermeasures: Is It OK to Capture Packets in a Virtual Machine?](https://www.activecountermeasures.com/is-it-ok-to-capture-packets-in-a-virtual-machine/) :fontawesome-solid-blog:
+- [:octicons-link-external-16: Installing Security Onion on Proxmox video](https://www.youtube.com/watch?v=BA6wuWM9acY) :simple-youtube:
+- [:octicons-link-external-16: Security Onion and Proxmox FYI on promisc setup](https://github.com/Security-Onion-Solutions/securityonion/discussions/8245) :simple-github:
+
+!!! 
