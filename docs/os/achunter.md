@@ -1,19 +1,22 @@
 # Installing AC-Hunter on Proxmox
 
-![image](https://www.activecountermeasures.com/wp-content/uploads/2021/04/ac-hunter_network_installation.png)
+![image](../static/images/achunter/ac-hunter.png)
 
 ## RTFM First
 
-- [Preinstall Guide](https://www.activecountermeasures.com/wp-content/uploads/2023/02/AC-Hunter-Pre-Install-Guide-v6_3_0-CE.pdf)
-- [Install Guide](https://www.activecountermeasures.com/wp-content/uploads/2023/06/AC-Hunter-Install-Guide-v6_3_0-CE_v2.pdf)
+- [:octicons-link-external-16: Preinstall Guide](https://www.activecountermeasures.com/wp-content/uploads/2023/02/AC-Hunter-Pre-Install-Guide-v6_3_0-CE.pdf) :fontawesome-solid-file-pdf:
+- [:octicons-link-external-16: Install Guide](https://www.activecountermeasures.com/wp-content/uploads/2023/06/AC-Hunter-Install-Guide-v6_3_0-CE_v2.pdf) :fontawesome-solid-file-pdf:
 
 ## The Procedure
 
 !!! note
     This process will install Zeek, BeaKer, and AC-Hunter.
 
+??? warning "DO NOT USE LXC CONTAINERS"
+    If you use the `ubuntu-20.04-standard_20.04-1_amd64.tar.gz` LXC CT Template, AC-Hunter will fail to start.
+
 1. Install Proxmox (this guide does not cover how to do that)
-2. Navigate to Proxmox's CT Templates and download `ubuntu-20.04-standard_20.04-1_amd64.tar.gz`
+2. Navigate to Proxmox's local -> ISO Images and download Ubuntu 20.04 to storage. You can find it [:octicons-link-external-16: here](https://releases.ubuntu.com/20.04/).
 3. Install OpenV Switch in Proxmox
    ```
    root@pve:~#  apt install -y openvswitch-switch
@@ -25,45 +28,47 @@
    ```
    root@pve:~# ovs-vsctl clear bridge vmbr# mirrors
    ```
-6. Create a new CT with
+6. Create a new VM using the Ubuntu ISO with
    ```
    VM ID: <as applicable>
    Name: <zeek or whatever seems appropriate>
    Disk: 500GB
    CPU: 4 Cores
-   RAM: 16GB (16384MB)
-   Swap: 16GB (16384MB)
-   Network: <appropriate Bridge> (this will be management)
+   RAM: 32GB (32768MB)
+      Network: <appropriate Bridge> (this will be management)
    ```
-7. Open the new VM settings and attach the vmbr as a *second* network interface and UNCHECK firewall
-8. Create a new CT with
+7. Open the new VM settings, create a new *Network Device*, and attach the vmbr to the *second* network interface then UNCHECK firewall
+8. Create a second VM using the Ubuntu ISO with
    ```
    VM ID: <as applicable>
    Name: <ACHunter or whatever seems appropriate>
    Disk: 500GB
-   CPU: 4 Cores
-   RAM: 16GB (16384MB)
-   Swap: 16GB (16384MB)
+   CPU: 8 (2 sockets, 4 Cores)
+   RAM: 64GB (65536MB)
    Network: <appropriate Bridge> (this will be management)
    ```
-9. Start the AC-Hunter and Zeek CTs
+9. Start the AC-Hunter and Zeek VMs
 10. Update both systems
-11. Setup SSH for them to communicate. Apply the following commands to each container. Add them to the `/etc/hosts` file, and then use `ssh-copy-id` to each other's servers including itself.
+11. This guide does not cover how to setup SSH, but you need to configure SSH for the two VMs to talk to each other. You will need to use `ssh-keygen` to make new SSH keys and `ssh-copy-id` to copy the keys to each of the servers. Ensure you can SSH into each other. **NOTE** I also suggest modifying your `/etc/hosts` file to include the IP address and hostname of the servers. Similar to the one below:
+    ```
+    192.168.1.100 zeek zeek.home.network
+    192.168.1.101 achunter achunter.home.network
+    ```
 12. In the Proxmox shell:  
-   In the commands below, the `ip link | grep ovs-system` command will show all the interfaces, you're looking for a `ovs-system` with the VM's ID in the interface. For example, if you have the Zeek container as VM 201, you'd look for `veth201i1`. You will replace that in the second command. You will also replace the # with the vmbr you created earlier. Do **NOT** include the `@if#` after the interface name.
+   In the commands below, the `ip link | grep tap` command will show all the interfaces, you're looking for a `tap` with the VM's ID in the interface. For example, if you have the Zeek container as VM 200, you'd look for `tap200i1`. The `tap200i0` is the first interface for the management interface. You will replace that in the second command. You will also replace the # with the vmbr you created earlier. ![image](../static/images/proxmox/ip-link-grep.png)
    ```
    root@pve:~# ip link
-   root@pve:~# ovs-vsctl --id=@p get port veth<VMID>i1 -- --id=@m create mirror name=span1 select-all=true output-port=@p -- set bridge vmbr# mirrors=@m
+   root@pve:~# ovs-vsctl --id=@p get port tap<VMID>i1 -- --id=@m create mirror name=span1 select-all=true output-port=@p -- set bridge vmbr# mirrors=@m
    ```
-13. [Download](https://www.activecountermeasures.com/ac-hunter-community-edition/linux-download/) the AC-Hunter *tar* file into the AC-Hunter container
+13. [:octicons-link-external-16: Download](https://www.activecountermeasures.com/ac-hunter-community-edition/linux-download/) the AC-Hunter *tar* file into the AC-Hunter VM
 14. Run the install script based on the *Install Guide* (see, told you to RTFM.)
     ```
     tar xvf *.tar
     cd achunter
-    ./install_acm.sh zeek root@zeek achunter root@achunter beaker root@achunter
+    ./install_acm.sh zeek user@zeek achunter user@achunter beaker user@achunter
     ```
 
-## Troubleshooting
+### Troubleshooting
 
 While installing, if you receive an error stating something along the lines of `TypeError: kwargs_from_env() got an unexpected keyword argument 'ssl_version'` you can reference a dude's workaround in [Discord](https://discord.com/channels/690293821866508430/1078339857937604638/1187083966239477900
 ).
@@ -83,7 +88,7 @@ TypeError: kwargs_from_env() got an unexpected keyword argument 'ssl_version'
 
 ### Workaround #2
 
-Need to edit 3 lines in `/usr/local/lib/python3.10/dist-packages/compose/cli/docker_client.py` (make a backup first).  Delete line 112 with `ssl_version=tls_version`. Also, remove ending comma from line 111. Line 123 (line 124 in the unedited file), remove `, ssl_version=tls_version`. 
+Need to edit 3 lines in `/usr/local/lib/python3.10/dist-packages/compose/cli/docker_client.py` (make a backup first).  Delete line 112 with `ssl_version=tls_version`. Also, remove the ending comma from line 111. Line 123 (line 124 in the unedited file), remove `, ssl_version=tls_version`. 
 
 The updated file should look like:
 
@@ -102,3 +107,8 @@ Line 123:
 ```
 
 After this change, installation of AC Hunter and Zeek completed without errors. AC Hunter CE is up and running.
+
+## User Guides
+
+- [:octicons-link-external-16: AC-Hunter CTF User Guide](https://www.activecountermeasures.com/wp-content/uploads/2022/02/AC-Hunter-CTF-User-Guide_2022.pdf) :fontawesome-solid-file-pdf:
+- [:octicons-link-external-16: AC-Hunter User Guide](https://www.activecountermeasures.com/wp-content/uploads/2023/02/AC-Hunter-User-Guide-v6_3_0-CE.pdf) :fontawesome-solid-file-pdf:
