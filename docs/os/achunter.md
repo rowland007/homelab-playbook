@@ -35,7 +35,7 @@
    Disk: 500GB
    CPU: 4 Cores
    RAM: 32GB (32768MB)
-      Network: <appropriate Bridge> (this will be management)
+   Network: <appropriate Bridge> (this will be management)
    ```
 7. Open the new VM settings, create a new *Network Device*, and attach the vmbr to the *second* network interface then UNCHECK firewall
 8. Create a second VM using the Ubuntu ISO with
@@ -49,7 +49,7 @@
    ```
 9. Start the AC-Hunter and Zeek VMs
 10. Update both systems
-11. This guide does not cover how to setup SSH, but you need to configure SSH for the two VMs to talk to each other. You will need to use `ssh-keygen` to make new SSH keys and `ssh-copy-id` to copy the keys to each of the servers. Ensure you can SSH into each other. **NOTE** I also suggest modifying your `/etc/hosts` file to include the IP address and hostname of the servers. Similar to the one below:
+11. This guide does not cover how to set up SSH, but you need to configure SSH for the two VMs to talk to each other. You will need to use `ssh-keygen` to make new SSH keys and `ssh-copy-id` to copy the keys to each of the servers. Ensure you can SSH into each other. **NOTE** I also suggest modifying your `/etc/hosts` file to include the IP address and hostname of the servers. Similar to the one below:
     ```
     192.168.1.100 zeek zeek.home.network
     192.168.1.101 achunter achunter.home.network
@@ -57,7 +57,7 @@
 12. In the Proxmox shell:  
    In the commands below, the `ip link | grep tap` command will show all the interfaces, you're looking for a `tap` with the VM's ID in the interface. For example, if you have the Zeek container as VM 200, you'd look for `tap200i1`. The `tap200i0` is the first interface for the management interface. You will replace that in the second command. You will also replace the # with the vmbr you created earlier. ![image](../static/images/proxmox/ip-link-grep.png)
    ```
-   root@pve:~# ip link
+   root@pve:~# ip link | grep tap
    root@pve:~# ovs-vsctl --id=@p get port tap<VMID>i1 -- --id=@m create mirror name=span1 select-all=true output-port=@p -- set bridge vmbr# mirrors=@m
    ```
 13. [:octicons-link-external-16: Download](https://www.activecountermeasures.com/ac-hunter-community-edition/linux-download/) the AC-Hunter *tar* file into the AC-Hunter VM
@@ -70,7 +70,7 @@
 
 ### Troubleshooting
 
-While installing, if you receive an error stating something along the lines of `TypeError: kwargs_from_env() got an unexpected keyword argument 'ssl_version'` you can reference a dude's workaround in [Discord](https://discord.com/channels/690293821866508430/1078339857937604638/1187083966239477900
+While installing, if you receive an error stating something along the lines of `TypeError: kwargs_from_env() got an unexpected keyword argument 'ssl_version'` you can reference a dude's workaround in [:octicons-link-external-16: Discord](https://discord.com/channels/690293821866508430/1078339857937604638/1187083966239477900
 ).
 
 > I ran into an error when installing AC Hunter CE on a fresh Ubuntu 22.0.4.3 LTS system with Python 3.10.12, Docker version 24.07, and docker-compose version 1.29.2. The error occured at line 362 of install_ac_hunter.sh: ```local mongo_datasets=`./hunt run --rm db_client mongo_cmd.sh "db.getMongo().getDBNames()"```. The error was thrown by docker-compose, which was being called from the hunt bash script, so this issue could also be seen outside of the installation process. 
@@ -106,7 +106,7 @@ Line 123:
         kwargs = kwargs_from_env(environment=environment)
 ```
 
-After this change, installation of AC Hunter and Zeek completed without errors. AC Hunter CE is up and running.
+After this change, the installation of AC Hunter and Zeek will complete without errors. AC-Hunter CE is up and running.
 
 ## User Guides
 
