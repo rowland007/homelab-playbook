@@ -12,8 +12,8 @@
 !!! note
     This process will install Zeek, BeaKer, and AC-Hunter. I am running this on my home network to experiment with Zeek and AC-Hunter. See the link down below about the warning about capturing packets in a VM.
 
-??? warning "DO NOT USE LXC CONTAINERS"
-    If you use the `ubuntu-20.04-standard_20.04-1_amd64.tar.gz` LXC CT Template, AC-Hunter will fail to start.
+??? bug "DO NOT USE LXC CONTAINERS"
+    If you use the `ubuntu-20.04-standard_20.04-1_amd64.tar.gz` LXC CT Template, AC-Hunter will fail to start. 
 
 1. Install Proxmox (this guide does not cover how to do that)
 2. Navigate to Proxmox's local -> ISO Images and download Ubuntu 20.04 to storage. You can find it [:octicons-link-external-16: here](https://releases.ubuntu.com/20.04/).
