@@ -24,6 +24,8 @@ nav:
         'Netbox': 'apps/netbox.md'
         'Kasm': 'apps/kasm.md'
         'WireGuard': 'apps/wireguard.md'
+    - Network:
+        'Cloudflare DNS': 'network/cloudflare.md'
     - Resources: 
         'Appendix 1': 'resources/app1.md'
         'Website Links': 'resources/websites.md'
